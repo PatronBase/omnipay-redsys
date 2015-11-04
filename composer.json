@@ -1,0 +1,42 @@
+{
+    "name": "patronbase/omnipay-redsys",
+    "type": "library",
+    "description": "Redsys driver for the Omnipay payment processing library",
+    "keywords": [
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment",
+        "redsys",
+        "servired"
+    ],
+    "homepage": "https://github.com/PatronBase/omnipay-redsys",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leith Caldwell",
+            "email": "leith@codedruids.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Omnipay\\Redsys\\" : "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Omnipay\\Redsys\\" : "tests/" }
+    },
+    "require": {
+        "omnipay/common": "~2.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "~2.0"
+    },
+    "suggest": {
+        "ext-mcrypt": "Required for hashing functions to check message signatures"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}
