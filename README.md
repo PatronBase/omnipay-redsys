@@ -3,6 +3,9 @@
 **Redsys driver for the Omnipay PHP payment processing library**
 
 [![Build Status](https://travis-ci.org/PatronBase/omnipay-redsys.png?branch=master)](https://travis-ci.org/PatronBase/omnipay-redsys)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/PatronBase/omnipay-redsys.svg?style=flat)](https://scrutinizer-ci.com/g/PatronBase/omnipay-redsys/code-structure)
+[![Code Quality](https://img.shields.io/scrutinizer/g/PatronBase/omnipay-redsys.svg?style=flat)](https://scrutinizer-ci.com/g/PatronBase/omnipay-redsys/?branch=master)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 [![Latest Stable Version](https://poser.pugx.org/PatronBase/omnipay-redsys/version.png)](https://packagist.org/packages/patronbase/omnipay-redsys)
 [![Total Downloads](https://poser.pugx.org/patronbase/omnipay-redsys/d/total.png)](https://packagist.org/packages/patronbase/omnipay-redsys)
 

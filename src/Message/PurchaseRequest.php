@@ -11,6 +11,20 @@ class PurchaseRequest extends AbstractRequest
 {
     protected $liveEndpoint = 'https://sis.redsys.es/sis/realizarPago';
     protected $testEndpoint = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+    protected static $consumerLanguages = array(
+        'es' => '001', // Spanish
+        'en' => '002', // English
+        'ca' => '003', // Catalan - same as Valencian (010)
+        'fr' => '004', // French
+        'de' => '005', // German
+        'nl' => '006', // Dutch
+        'it' => '007', // Italian
+        'sv' => '008', // Swedish
+        'pt' => '009', // Portuguese
+        'pl' => '011', // Polish
+        'gl' => '012', // Galician
+        'eu' => '013', // Basque
+    );
 
     public function getCardholder()
     {
@@ -40,57 +54,7 @@ class PurchaseRequest extends AbstractRequest
             }
             $value = str_pad($value, 3, '0', STR_PAD_LEFT);
         } elseif (!is_numeric($value)) {
-            switch ($value) {
-                default:
-                // Spanish
-                case 'es':
-                    $value = '001';
-                    break;
-                // English
-                case 'en':
-                    $value = '002';
-                    break;
-                // Catalan - same as Valencian (010)
-                case 'ca':
-                    $value = '003';
-                    break;
-                // French
-                case 'fr':
-                    $value = '004';
-                    break;
-                // German
-                case 'de':
-                    $value = '005';
-                    break;
-                // Dutch
-                case 'nl':
-                    $value = '006';
-                    break;
-                // Italian
-                case 'it':
-                    $value = '007';
-                    break;
-                // Swedish
-                case 'sv':
-                    $value = '008';
-                    break;
-                // Portuguese
-                case 'pt':
-                    $value = '009';
-                    break;
-                // Polish
-                case 'pl':
-                    $value = '011';
-                    break;
-                // Galician
-                case 'gl':
-                    $value = '012';
-                    break;
-                // Basque
-                case 'eu':
-                    $value = '013';
-                    break;
-            }
+            $value = isset(self::$consumerLanguages[$value]) ? self::$consumerLanguages[$value] : '001';
         }
 
         return $this->setParameter('consumerLanguage', $value);
@@ -171,26 +135,24 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate('merchantId', 'terminalId', 'amount', 'currency');
 
-        $data = array();
-
-        // mandatory fields
-        $data['Ds_Merchant_MerchantCode'] = $this->getMerchantId();
-        $data['Ds_Merchant_Terminal'] = $this->getTerminalId();
-        $data['Ds_Merchant_TransactionType'] = '0'; // Authorisation
-        $data['Ds_Merchant_Amount'] = $this->getAmountInteger();
-        $data['Ds_Merchant_Currency'] = $this->getCurrencyNumeric(); // uses ISO-4217 codes
-        $data['Ds_Merchant_Order'] = $this->getTransactionId();
-        $data['Ds_Merchant_MerchantUrl'] = $this->getNotifyUrl();
-        // optional fields
-        $data['Ds_Merchant_ProductDescription'] = $this->getDescription();
-        $data['Ds_Merchant_Cardholder'] = $this->getCardholder();
-        $data['Ds_Merchant_UrlOK'] = $this->getReturnUrl();
-        $data['Ds_Merchant_UrlKO'] = $this->getReturnUrl();
-        $data['Ds_Merchant_MerchantName'] = $this->getMerchantName();
-        $data['Ds_Merchant_ConsumerLanguage'] = $this->getConsumerLanguage();
-        $data['Ds_Merchant_MerchantData'] = $this->getMerchantData();
-
-        return $data;
+        return array(
+            // mandatory fields
+            'Ds_Merchant_MerchantCode'       => $this->getMerchantId(),
+            'Ds_Merchant_Terminal'           => $this->getTerminalId(),
+            'Ds_Merchant_TransactionType'    => '0',                          // Authorisation
+            'Ds_Merchant_Amount'             => $this->getAmountInteger(),
+            'Ds_Merchant_Currency'           => $this->getCurrencyNumeric(),  // uses ISO-4217 codes
+            'Ds_Merchant_Order'              => $this->getTransactionId(),
+            'Ds_Merchant_MerchantUrl'        => $this->getNotifyUrl(),
+            // optional fields
+            'Ds_Merchant_ProductDescription' => $this->getDescription(),
+            'Ds_Merchant_Cardholder'         => $this->getCardholder(),
+            'Ds_Merchant_UrlOK'              => $this->getReturnUrl(),
+            'Ds_Merchant_UrlKO'              => $this->getReturnUrl(),
+            'Ds_Merchant_MerchantName'       => $this->getMerchantName(),
+            'Ds_Merchant_ConsumerLanguage'   => $this->getConsumerLanguage(),
+            'Ds_Merchant_MerchantData'       => $this->getMerchantData(),
+        );
     }
 
     public function sendData($data)
