@@ -70,6 +70,8 @@ class PurchaseRequestTest extends TestCase
     {
         $this->request->setConsumerLanguage(1);
         $this->assertSame('001', $this->request->getConsumerLanguage());
+        $this->request->setConsumerLanguage(99); // invalid, forces 1
+        $this->assertSame('001', $this->request->getConsumerLanguage());
         $this->request->setConsumerLanguage('en');
         $this->assertSame('002', $this->request->getConsumerLanguage());
     }
