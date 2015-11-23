@@ -9,8 +9,11 @@ use Omnipay\Common\Message\AbstractRequest;
  */
 class PurchaseRequest extends AbstractRequest
 {
+    /** @var string */
     protected $liveEndpoint = 'https://sis.redsys.es/sis/realizarPago';
+    /** @var string */
     protected $testEndpoint = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+    /** @var array */
     protected static $consumerLanguages = array(
         'es' => '001', // Spanish
         'en' => '002', // English

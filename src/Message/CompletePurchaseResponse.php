@@ -17,7 +17,7 @@ class CompletePurchaseResponse extends AbstractResponse
     /** @var boolean */
     protected $usingUpcaseParameters = false;
     /** @var boolean */
-    protected $usingUpcaseResponse   = false;
+    protected $usingUpcaseResponse = false;
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ class CompletePurchaseResponse extends AbstractResponse
      * @param RequestInterface $request the initiating request.
      * @param mixed $data
      *
-     * @throws InvalidResponseException If order number is missing or signature does not match
+     * @throws InvalidResponseException If merchant data or order number is missing, or signature does not match
      */
     public function __construct(RequestInterface $request, $data)
     {
@@ -89,6 +89,8 @@ class CompletePurchaseResponse extends AbstractResponse
 
     /**
      * Helper method to get a specific merchant parameter if available.
+     *
+     * @param string $key The key to look up
      *
      * @return null|mixed
      */

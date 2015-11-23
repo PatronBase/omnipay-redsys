@@ -51,7 +51,7 @@ abstract class AbstractResponse extends BaseAbstractResponse
      */
     protected function encryptMessage($message, $key)
     {
-        $iv = implode(array_map("chr", array(0, 0, 0, 0, 0, 0, 0, 0)));
+        $iv = implode(array_map('chr', array(0, 0, 0, 0, 0, 0, 0, 0)));
 
         if (function_exists('mcrypt_encrypt')) {
             $ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv);
