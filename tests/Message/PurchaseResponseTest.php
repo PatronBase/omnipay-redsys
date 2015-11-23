@@ -78,6 +78,9 @@ class PurchaseResponseTest extends TestCase
         $this->assertNull($this->response->getMessage());
     }
 
+    /**
+     * Confirm that the mcrypt extension is loaded
+     */
     public function testMcryptExists()
     {
         $this->assertTrue(extension_loaded('mcrypt'));

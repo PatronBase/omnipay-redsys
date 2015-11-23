@@ -65,4 +65,12 @@ class PurchaseRequestTest extends TestCase
     {
         $this->assertSame('Mk9m98IfEblmPfrpsawt7BmxObt98Jev', $this->request->getHmacKey());
     }
+
+    public function testSetConsumerLanguage()
+    {
+        $this->request->setConsumerLanguage(1);
+        $this->assertSame('001', $this->request->getConsumerLanguage());
+        $this->request->setConsumerLanguage('en');
+        $this->assertSame('002', $this->request->getConsumerLanguage());
+    }
 }

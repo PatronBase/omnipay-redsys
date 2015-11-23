@@ -14,6 +14,10 @@ class CompletePurchaseResponse extends AbstractResponse
     protected $merchantParameters;
     /** @var string */
     protected $returnSignature;
+    /** @var boolean */
+    protected $usingUpcaseParameters = false;
+    /** @var boolean */
+    protected $usingUpcaseResponse   = false;
 
     /**
      * Constructor
@@ -27,22 +31,31 @@ class CompletePurchaseResponse extends AbstractResponse
     {
         parent::__construct($request, $data);
 
-        $this->merchantParameters = $this->decodeMerchantParameters($data['Ds_MerchantParameters']);
+        if (!empty($data['Ds_MerchantParameters'])) {
+            $this->merchantParameters = $this->decodeMerchantParameters($data['Ds_MerchantParameters']);
+        } elseif (!empty($data['DS_MERCHANTPARAMETERS'])) {
+            $this->merchantParameters = $this->decodeMerchantParameters($data['DS_MERCHANTPARAMETERS']);
+            $this->usingUpcaseResponse = true;
+        } else {
+            throw new InvalidResponseException('Invalid response from payment gateway (no data)');
+        }
+
         if (!empty($this->merchantParameters['Ds_Order'])) {
             $order = $this->merchantParameters['Ds_Order'];
         } elseif (!empty($this->merchantParameters['DS_ORDER'])) {
             $order = $this->merchantParameters['DS_ORDER'];
+            $this->usingUpcaseParameters = true;
         } else {
             throw new InvalidResponseException();
         }
 
         $this->returnSignature = $this->createReturnSignature(
-            $data['Ds_MerchantParameters'],
+            $data[$this->usingUpcaseResponse ? 'DS_MERCHANTPARAMETERS' : 'Ds_MerchantParameters'],
             $order,
             base64_decode($this->request->getHmacKey())
         );
 
-        if ($this->returnSignature != $data['Ds_Signature']) {
+        if ($this->returnSignature != $data[$this->usingUpcaseResponse ? 'DS_SIGNATURE' : 'Ds_Signature']) {
             throw new InvalidResponseException('Invalid response from payment gateway (signature mismatch)');
         }
     }
@@ -54,10 +67,11 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return isset($this->merchantParameters['Ds_Response'])
-            && is_numeric($this->merchantParameters['Ds_Response'])
-            && 0 <= $this->merchantParameters['Ds_Response']
-            && 100 > $this->merchantParameters['Ds_Response'];
+        $key = $this->usingUpcaseParameters ? 'DS_RESPONSE' : 'Ds_Response';
+        return isset($this->merchantParameters[$key])
+            && is_numeric($this->merchantParameters[$key])
+            && 0 <= $this->merchantParameters[$key]
+            && 100 > $this->merchantParameters[$key];
     }
 
     /**
@@ -73,20 +87,46 @@ class CompletePurchaseResponse extends AbstractResponse
             : $data;
     }
 
+    /**
+     * Helper method to get a specific merchant parameter if available.
+     *
+     * @return null|mixed
+     */
+    protected function getKey($key)
+    {
+        if ($this->usingUpcaseParameters) {
+            $key = strtoupper($key);
+        }
+        return isset($this->merchantParameters[$key]) ? $this->merchantParameters[$key] : null;
+    }
+
+    /**
+     * Get the authorisation code if available.
+     *
+     * @return null|string
+     */
     public function getTransactionReference()
     {
-        return isset($this->merchantParameters['Ds_AuthorisationCode'])
-            ? $this->merchantParameters['Ds_AuthorisationCode']
-            : null;
+        return $this->getKey('Ds_AuthorisationCode');
     }
 
+    /**
+     * Get the merchant response message if available.
+     *
+     * @return null|string
+     */
     public function getMessage()
     {
-        return isset($this->merchantParameters['Ds_Response']) ? $this->merchantParameters['Ds_Response'] : null;
+        return $this->getKey('Ds_Response');
     }
 
+    /**
+     * Get the card type if available.
+     *
+     * @return null|string
+     */
     public function getCardType()
     {
-        return isset($this->merchantParameters['Ds_Card_Type']) ? $this->merchantParameters['Ds_Card_Type'] : null;
+        return $this->getKey('Ds_Card_Type');
     }
 }
