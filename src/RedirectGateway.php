@@ -7,15 +7,15 @@ use Omnipay\Redsys\Message\CompletePurchaseRequest;
 use Omnipay\Redsys\Message\PurchaseRequest;
 
 /**
- * Redsys Gateway
+ * Redsys Redirect Gateway
  *
  * @link http://www.redsys.es/
  */
-class Gateway extends AbstractGateway
+class RedirectGateway extends AbstractGateway
 {
     public function getName()
     {
-        return 'Redsys';
+        return 'Redsys Redirect';
     }
 
     public function getDefaultParameters()

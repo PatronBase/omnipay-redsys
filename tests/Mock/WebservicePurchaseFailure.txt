@@ -1,0 +1,38 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 9 Nov 2016 19:40:00 GMT
+Content-Type: application/xml;charset=utf-8
+Content-Length: 617
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <p231:trataPeticionResponse xmlns:p231="http://webservice.sis.sermepa.es">
+      <p231:trataPeticionReturn>
+
+&lt;RETORNOXML&gt;
+  &lt;CODIGO&gt;0&lt;/CODIGO&gt;
+  &lt;OPERACION&gt;
+      &lt;Ds_Amount&gt;145&lt;/Ds_Amount&gt;
+      &lt;Ds_Currency&gt;978&lt;/Ds_Currency&gt;
+      &lt;Ds_Order&gt;0123abc&lt;/Ds_Order&gt;
+      &lt;Ds_Signature&gt;xyBfo3NLgmsDDXaUjTkBmM8vOD8X/jrNDaBAAN2qMyE=&lt;/Ds_Signature&gt;
+      &lt;Ds_MerchantCode&gt;999008881&lt;/Ds_MerchantCode&gt;
+      &lt;Ds_Terminal&gt;871&lt;/Ds_Terminal&gt;
+      &lt;Ds_Response&gt;0180&lt;/Ds_Response&gt;
+      &lt;Ds_AuthorisationCode&gt;++++++&lt;/Ds_AuthorisationCode&gt;
+      &lt;Ds_TransactionType&gt;A&lt;/Ds_TransactionType&gt;
+      &lt;Ds_SecurePayment&gt;0&lt;/Ds_SecurePayment&gt;
+      &lt;Ds_Language&gt;2&lt;/Ds_Language&gt;
+
+      &lt;Ds_MerchantData&gt;Ref: 99zz&lt;/Ds_MerchantData&gt;
+      &lt;Ds_Card_Country&gt;0&lt;/Ds_Card_Country&gt;
+  &lt;/OPERACION&gt;
+&lt;/RETORNOXML&gt;
+
+      </p231:trataPeticionReturn>
+    </p231:trataPeticionResponse>
+  </soapenv:Body>
+</soapenv:Envelope>

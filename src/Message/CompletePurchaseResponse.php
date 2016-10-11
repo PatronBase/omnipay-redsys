@@ -2,6 +2,7 @@
 
 namespace Omnipay\Redsys\Message;
 
+use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 use Omnipay\Common\Exception\InvalidResponseException;
 
@@ -31,10 +32,12 @@ class CompletePurchaseResponse extends AbstractResponse
     {
         parent::__construct($request, $data);
 
+        $security = new Security;
+
         if (!empty($data['Ds_MerchantParameters'])) {
-            $this->merchantParameters = $this->decodeMerchantParameters($data['Ds_MerchantParameters']);
+            $this->merchantParameters = $security->decodeMerchantParameters($data['Ds_MerchantParameters']);
         } elseif (!empty($data['DS_MERCHANTPARAMETERS'])) {
-            $this->merchantParameters = $this->decodeMerchantParameters($data['DS_MERCHANTPARAMETERS']);
+            $this->merchantParameters = $security->decodeMerchantParameters($data['DS_MERCHANTPARAMETERS']);
             $this->usingUpcaseResponse = true;
         } else {
             throw new InvalidResponseException('Invalid response from payment gateway (no data)');
@@ -49,10 +52,10 @@ class CompletePurchaseResponse extends AbstractResponse
             throw new InvalidResponseException();
         }
 
-        $this->returnSignature = $this->createReturnSignature(
+        $this->returnSignature = $security->createReturnSignature(
             $data[$this->usingUpcaseResponse ? 'DS_MERCHANTPARAMETERS' : 'Ds_MerchantParameters'],
             $order,
-            base64_decode($this->request->getHmacKey())
+            $this->request->getHmacKey()
         );
 
         if ($this->returnSignature != $data[$this->usingUpcaseResponse ? 'DS_SIGNATURE' : 'Ds_Signature']) {

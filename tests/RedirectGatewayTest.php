@@ -3,14 +3,18 @@
 namespace Omnipay\Redsys;
 
 use Omnipay\Tests\GatewayTestCase;
+use Mockery as m;
 
-class GatewayTest extends GatewayTestCase
+class RedirectGatewayTest extends GatewayTestCase
 {
+    /** @var array */
+    protected $options;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->gateway = new Gateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new RedirectGateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = array(
             'amount' => '1.45',

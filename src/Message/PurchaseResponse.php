@@ -2,15 +2,13 @@
 
 namespace Omnipay\Redsys\Message;
 
-use Omnipay\Common\Message\RedirectResponseInterface;
+use Omnipay\Common\Message\AbstractResponse;
 
 /**
  * Redsys Purchase Response
  */
-class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class PurchaseResponse extends AbstractResponse
 {
-    protected $version = 'HMAC_SHA256_V1';
-
     public function isSuccessful()
     {
         return false;
@@ -33,15 +31,6 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
 
     public function getRedirectData()
     {
-        $redirect_data = array();
-        $redirect_data['Ds_SignatureVersion'] = $this->version;
-        $redirect_data['Ds_MerchantParameters'] = $this->encodeMerchantParameters($this->data);
-        $redirect_data['Ds_Signature'] = $this->createSignature(
-            $redirect_data['Ds_MerchantParameters'],
-            $this->data['Ds_Merchant_Order'],
-            base64_decode($this->request->getHmacKey())
-        );
-
-        return $redirect_data;
+        return $this->data;
     }
 }

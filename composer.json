@@ -9,7 +9,12 @@
         "pay",
         "payment",
         "redsys",
-        "servired"
+        "servired",
+        "sermepa",
+        "redirect",
+        "webservice",
+        "web service",
+        "soap"
     ],
     "homepage": "https://github.com/PatronBase/omnipay-redsys",
     "license": "MIT",
@@ -36,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "2.1.x-dev"
         }
     }
 }
