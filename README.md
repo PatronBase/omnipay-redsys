@@ -11,7 +11,8 @@
 
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements Redsys support for Omnipay.
+processing library for PHP 5.3+. This package implements Redsys support for Omnipay. It includes
+support for both redirect (3-party) and webservice (2-party) versions of the gateway.
 
 ## Installation
 
@@ -35,7 +36,8 @@ And run composer to update your dependencies:
 
 The following gateways are provided by this package:
 
-* Redsys
+* Redsys_Redirect
+* Redsys_Webservice
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.

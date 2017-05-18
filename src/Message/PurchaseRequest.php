@@ -160,7 +160,21 @@ class PurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        return $this->response = new PurchaseResponse($this, $data);
+        $security = new Security;
+
+        $encoded_data = $security->encodeMerchantParameters($data);
+
+        $response_data = array(
+            'Ds_SignatureVersion'   => Security::VERSION,
+            'Ds_MerchantParameters' => $encoded_data,
+            'Ds_Signature'          => $security->createSignature(
+                $encoded_data,
+                $data['Ds_Merchant_Order'],
+                $this->getHmacKey()
+            ),
+        );
+
+        return $this->response = new PurchaseResponse($this, $response_data);
     }
 
     public function getEndpoint()

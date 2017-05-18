@@ -248,6 +248,6 @@ class CompletePurchaseResponseTest extends TestCase
         $data = $this->response->getData();
         foreach ($checks as $key => $expected) {
             $this->assertSame($expected, $data[$key]);
-        }     
+        }
     }
 }
