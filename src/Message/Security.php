@@ -58,7 +58,11 @@ class Security
         $iv = implode(array_map('chr', array(0, 0, 0, 0, 0, 0, 0, 0)));
 
         if ($this->hasValidEncryptionMethod()) {
-            $ciphertext = mcrypt_encrypt(MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv);
+            // OpenSSL needs to manually pad $message length to be mod 8 = 0; OPENSSL_ZERO_PADDING option doens't work
+            if (strlen($message) % 8) {
+                $message = str_pad($message, strlen($message) + 8 - strlen($message) % 8, "\0");
+            }
+            $ciphertext = openssl_encrypt($message, 'des-ede3-cbc', $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
         } else {
             throw new RuntimeException('No valid encryption extension installed');
         }
@@ -73,7 +77,7 @@ class Security
      */
     public function hasValidEncryptionMethod()
     {
-        return extension_loaded('mcrypt') && function_exists('mcrypt_encrypt');
+        return extension_loaded('openssl') && function_exists('openssl_encrypt');
     }
 
     /**
