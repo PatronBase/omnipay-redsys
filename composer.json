@@ -37,7 +37,7 @@
         "omnipay/tests": "~2.0"
     },
     "suggest": {
-        "ext-mcrypt": "Required for hashing functions to check message signatures"
+        "ext-openssl": "Required for hashing functions to check message signatures"
     },
     "extra": {
         "branch-alias": {

@@ -38,14 +38,14 @@ class SecurityTest extends TestCase
     }
 
     /**
-     * Confirm that the mcrypt extension is loaded and we have the appropriate method
+     * Confirm that the openssl extension is loaded and we have the appropriate method
      *
      * Checks are split out in case only one is failing, rather than the blanket true/false for both
      */
     public function testHasValidEncryptionMethod()
     {
-        $this->assertTrue(extension_loaded('mcrypt'));
-        $this->assertTrue(function_exists('mcrypt_encrypt'));
+        $this->assertTrue(extension_loaded('openssl'));
+        $this->assertTrue(function_exists('openssl_encrypt'));
         $this->assertTrue($this->security->hasValidEncryptionMethod());
     }
 
