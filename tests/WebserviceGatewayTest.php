@@ -2,11 +2,14 @@
 
 namespace Omnipay\Redsys;
 
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Omnipay\Common\CreditCard;
 use Omnipay\Tests\GatewayTestCase;
 
 class WebserviceGatewayTest extends GatewayTestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var array */
     protected $options;
 

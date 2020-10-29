@@ -2,10 +2,13 @@
 
 namespace Omnipay\Redsys\Message;
 
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Omnipay\Tests\TestCase;
 
 class CompletePurchaseResponseTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /** @var CompletePurchaseResponse */
     private $response;
 
