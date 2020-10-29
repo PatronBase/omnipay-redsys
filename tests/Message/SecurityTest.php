@@ -61,13 +61,13 @@ class SecurityTest extends TestCase
 
     /**
      * Make sure correct exception fires when no valid extension is installed
+     *
+     * @doesNotPerformAssertions
      */
     public function testEncryptMessageException()
     {
-        $this->setExpectedException(
-            '\Omnipay\Common\Exception\RuntimeException',
-            'No valid encryption extension installed'
-        );
+        $this->expectException('Omnipay\Common\Exception\RuntimeException');
+        $this->expectExceptionMessage('No valid encryption extension installed');
         $this->mockSecurity->shouldReceive('hasValidEncryptionMethod')->once()->andReturn(false);
         $this->encryptMessage();
     }

@@ -109,11 +109,12 @@ class WebservicePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (no data)
+     * @doesNotPerformAssertions
      */
     public function testPurchaseInvalidNoReturnCode()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (no data)');
         $this->response = new WebservicePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -123,11 +124,12 @@ class WebservicePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (no data)
+     * @doesNotPerformAssertions
      */
     public function testPurchaseInvalidNoTransactionData()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (no data)');
         $this->response = new WebservicePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -137,11 +139,12 @@ class WebservicePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (SIS0042)
+     * @doesNotPerformAssertions
      */
     public function testPurchaseIntegrationError()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (SIS0042)');
         $this->response = new WebservicePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -151,11 +154,12 @@ class WebservicePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway
+     * @doesNotPerformAssertions
      */
     public function testCompletePurchaseInvalidNoOrder()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway');
         $this->response = new WebservicePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -168,11 +172,12 @@ class WebservicePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (missing data)
+     * @doesNotPerformAssertions
      */
     public function testCompletePurchaseInvalidMissingData()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (missing data)');
         $this->response = new WebservicePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -187,11 +192,13 @@ class WebservicePurchaseResponseTest extends TestCase
 
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (signature mismatch)
+     * @doesNotPerformAssertions
      */
     public function testPurchaseBadSignature()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (signature mismatch)');
+
         $this->getMockRequest()->shouldReceive('getHmacKey')->once()->andReturn('Mk9m98IfEblmPfrpsawt7BmxObt98Jev');
 
         $this->response = new WebservicePurchaseResponse(

@@ -93,14 +93,15 @@ class WebservicePurchaseRequest extends PurchaseRequest
             </soapenv:Envelope>";
 
         // send the actual SOAP request
-        $httpResponse = $this->httpClient->post(
+        $httpResponse = $this->httpClient->request(
+            'POST',
             $this->getEndpoint(),
             array('SOAPAction' => 'trataPeticion'),
             $requestEnvelope
-        )->send();
+        );
 
         // unwrap httpResponse into actual data as SimpleXMLElement tree
-        $responseEnvelope = $httpResponse->xml();
+        $responseEnvelope = simplexml_load_string($httpResponse->getBody()->getContents());
         $responseData = new SimpleXMLElement(htmlspecialchars_decode(
             $responseEnvelope->children("http://schemas.xmlsoap.org/soap/envelope/")
             ->Body->children("http://webservice.sis.sermepa.es")

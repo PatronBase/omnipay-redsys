@@ -84,11 +84,13 @@ class WebserviceGatewayTest extends GatewayTestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (SIS0438)
+     * @doesNotPerformAssertions
      */
     public function testPurchaseInvalid()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (SIS0438)');
+ 
         $this->setMockHttpResponse('WebservicePurchaseInvalid.txt');
 
         $this->options['card'] = new CreditCard(array(

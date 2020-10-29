@@ -185,11 +185,12 @@ class CompletePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (no data)
+     * @doesNotPerformAssertions
      */
     public function testCompletePurchaseInvalidNoParameters()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (no data)');
         $this->response = new CompletePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -201,11 +202,12 @@ class CompletePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway
+     * @doesNotPerformAssertions
      */
     public function testCompletePurchaseInvalidNoOrder()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway');
         $this->response = new CompletePurchaseResponse(
             $this->getMockRequest(),
             array(
@@ -221,11 +223,13 @@ class CompletePurchaseResponseTest extends TestCase
     }
 
     /**
-     * @expectedException         Omnipay\Common\Exception\InvalidResponseException
-     * @expectedExceptionMessage  Invalid response from payment gateway (signature mismatch)
+     * @doesNotPerformAssertions
      */
     public function testCompletePurchaseInvalidSignature()
     {
+        $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
+        $this->expectExceptionMessage('Invalid response from payment gateway (signature mismatch)');
+
         $this->getMockRequest()->shouldReceive('getHmacKey')->once()->andReturn('Mk9m98IfEblmPfrpsawt7BmxObt98Jev');
 
         $this->response = new CompletePurchaseResponse(

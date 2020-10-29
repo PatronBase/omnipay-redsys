@@ -11,7 +11,7 @@
 
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements Redsys support for Omnipay. It includes
+processing library for PHP 5.6+. This package implements Redsys support for Omnipay. It includes
 support for both redirect (3-party) and webservice (2-party) versions of the gateway.
 
 ## Installation
@@ -22,7 +22,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "PatronBase/omnipay-redsys": "~2.0"
+        "PatronBase/omnipay-redsys": "~3.0"
     }
 }
 ```

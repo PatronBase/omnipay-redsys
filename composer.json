@@ -31,17 +31,19 @@
         "psr-4": { "Omnipay\\Redsys\\" : "tests/" }
     },
     "require": {
-        "omnipay/common": "~2.0"
+        "omnipay/common": "~3.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "~3.0",
+        "squizlabs/php_codesniffer": "^3.5"
     },
     "suggest": {
         "ext-mcrypt": "Required for hashing functions to check message signatures"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.1.x-dev"
+            "dev-master": "3.0.x-dev"
         }
-    }
+    },
+    "prefer-stable": true
 }
