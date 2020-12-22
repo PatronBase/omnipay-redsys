@@ -31,10 +31,10 @@
         "psr-4": { "Omnipay\\Redsys\\" : "tests/" }
     },
     "require": {
-        "omnipay/common": "~3.0"
+        "omnipay/common": "dev-address3-support"
     },
     "require-dev": {
-        "omnipay/tests": "~3.0",
+        "omnipay/tests": "dev-address3-support",
         "squizlabs/php_codesniffer": "^3.5"
     },
     "suggest": {
@@ -45,5 +45,15 @@
             "dev-master": "3.0.x-dev"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/CodeDruids/omnipay-common"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/CodeDruids/omnipay-tests"
+        }
+    ],
     "prefer-stable": true
 }

@@ -3,7 +3,6 @@
 namespace Omnipay\Redsys;
 
 use Omnipay\Tests\GatewayTestCase;
-use Mockery as m;
 
 class RedirectGatewayTest extends GatewayTestCase
 {
