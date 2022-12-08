@@ -16,16 +16,17 @@ class RedirectGatewayTest extends GatewayTestCase
         $this->gateway = new RedirectGateway($this->getHttpClient(), $this->getHttpRequest());
 
         $this->options = array(
-            'amount' => '1.45',
-            'currency' => 'EUR',
-            'merchantId' => '999008881',
-            'merchantName' => 'My Store',
-            'terminalId' => '871',
-            'notifyUrl' => 'https://www.example.com/notify',
-            'returnUrl' => 'https://www.example.com/return',
-            'hmacKey' => 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev',
-            'transactionId' => '123abc',
-            'testMode' => true,
+            'amount'          => '1.45',
+            'currency'        => 'EUR',
+            'merchantId'      => '999008881',
+            'merchantName'    => 'My Store',
+            'terminalId'      => '871',
+            'notifyUrl'       => 'https://www.example.com/notify',
+            'returnUrl'       => 'https://www.example.com/return',
+            'hmacKey'         => 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev',
+            'protocolVersion' => '2.1.0',
+            'transactionId'   => '123abc',
+            'testMode'        => true,
         );
     }
 
