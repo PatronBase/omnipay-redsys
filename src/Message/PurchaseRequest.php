@@ -228,6 +228,31 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * Get the protocolVersion field
+     * Corresponds to the Ds_Merchant_Emv3Ds.protocolVersion. field in Redsys documentation.
+     *
+     * @return null|string
+     *
+     */
+    public function getProtocolVersion()
+    {
+        return $this->getParameter('protocolVersion');
+    }
+
+    /**
+     * Set the protocolVersion field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.protocolVersion field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setProtocolVersion($value)
+    {
+        return $this->setParameter('protocolVersion', $value);
+    }
+
+    /**
      * Get the use3ds field
      *
      * Controls the presence of the Ds_Merchant_Emv3Ds structure
@@ -250,6 +275,56 @@ class PurchaseRequest extends AbstractRequest
     public function setUse3DS($value)
     {
         return $this->setParameter('use3ds', $value);
+    }
+
+    /**
+     * Get the threeDSCompInd field
+     * Corresponds to the Ds_Merchant_Emv3Ds.threeDSCompInd field in Redsys documentation.
+     *
+     * @return null|string
+     *
+     */
+    public function getThreeDSCompInd()
+    {
+        return $this->getParameter('threeDSCompInd');
+    }
+
+    /**
+     * Set the threeDSCompInd field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.threeDSCompInd field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setThreeDSCompInd($value)
+    {
+        return $this->setParameter('threeDSCompInd', $value);
+    }
+
+    /**
+     * Get the threeDSInfo field
+     * Corresponds to the Ds_Merchant_Emv3Ds.threeDSInfo field in Redsys documentation.
+     *
+     * @return null|string
+     *
+     */
+    public function getThreeDSInfo()
+    {
+        return $this->getParameter('threeDSInfo');
+    }
+
+    /**
+     * Set the threeDSInfo field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.threeDSInfo field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setThreeDSInfo($value)
+    {
+        return $this->setParameter('threeDSInfo', $value);
     }
 
     /**
@@ -1383,6 +1458,256 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
+     * Get the browserAcceptHeader field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserAcceptHeader field
+     *
+     * @return null|string
+     */
+    public function getBrowserAcceptHeader()
+    {
+        return $this->getParameter('browserAcceptHeader');
+    }
+
+    /**
+     * Set the browserAcceptHeader field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserAcceptHeader field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setBrowserAcceptHeader($value)
+    {
+        return $this->setParameter('browserAcceptHeader', $value);
+    }
+
+    /**
+     * Get the browserColorDepth field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserColorDepth field
+     *
+     * @return null|int
+     */
+    public function getBrowserColorDepth()
+    {
+        return $this->getParameter('browserColorDepth');
+    }
+
+    /**
+     * Set the browserColorDepth field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserColorDepth field
+     *
+     * @param null|int $value
+     * @return self
+     */
+    public function setBrowserColorDepth($value)
+    {
+        return $this->setParameter('browserColorDepth', $value);
+    }
+
+    /**
+     * Get the browserIP field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserIP field
+     *
+     * @return null|string
+     */
+    public function getBrowserIP()
+    {
+        return $this->getParameter('browserIP');
+    }
+
+    /**
+     * Set the browserIP field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserIP field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setBrowserIP($value)
+    {
+        return $this->setParameter('browserIP', $value);
+    }
+
+    /**
+     * Get the browserJavaEnabled field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserJavaEnabled field
+     *
+     * @return null|bool
+     */
+    public function getBrowserJavaEnabled()
+    {
+        return $this->getParameter('browserJavaEnabled');
+    }
+
+    /**
+     * Set the browserJavaEnabled field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserJavaEnabled field
+     *
+     * @param null|bool $value
+     * @return self
+     */
+    public function setBrowserJavaEnabled($value)
+    {
+        return $this->setParameter('browserJavaEnabled', $value);
+    }
+
+    /**
+     * Get the browserLanguage field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserLanguage field
+     *
+     * @return null|string
+     */
+    public function getBrowserLanguage()
+    {
+        return $this->getParameter('browserLanguage');
+    }
+
+    /**
+     * Set the browserLanguage field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserLanguage field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setBrowserLanguage($value)
+    {
+        return $this->setParameter('browserLanguage', $value);
+    }
+
+    /**
+     * Get the browserScreenHeight field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserScreenHeight field
+     *
+     * @return null|int
+     */
+    public function getBrowserScreenHeight()
+    {
+        return $this->getParameter('browserScreenHeight');
+    }
+
+    /**
+     * Set the browserScreenHeight field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserScreenHeight field
+     *
+     * @param null|int $value
+     * @return self
+     */
+    public function setBrowserScreenHeight($value)
+    {
+        return $this->setParameter('browserScreenHeight', $value);
+    }
+
+    /**
+     * Get the browserScreenWidth field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserScreenWidth field
+     *
+     * @return null|int
+     */
+    public function getBrowserScreenWidth()
+    {
+        return $this->getParameter('browserScreenWidth');
+    }
+
+    /**
+     * Set the browserScreenWidth field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserScreenWidth field
+     *
+     * @param null|int $value
+     * @return self
+     */
+    public function setBrowserScreenWidth($value)
+    {
+        return $this->setParameter('browserScreenWidth', $value);
+    }
+
+    /**
+     * Get the browserTZ field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserTZ field
+     *
+     * @return null|int
+     */
+    public function getBrowserTZ()
+    {
+        return $this->getParameter('browserTZ');
+    }
+
+    /**
+     * Set the browserTZ field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserTZ field
+     *
+     * @param null|int $value
+     * @return self
+     */
+    public function setBrowserTZ($value)
+    {
+        return $this->setParameter('browserTZ', $value);
+    }
+
+    /**
+     * Get the browserUserAgent field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserUserAgent field
+     *
+     * @return null|string
+     */
+    public function getBrowserUserAgent()
+    {
+        return $this->getParameter('browserUserAgent');
+    }
+
+    /**
+     * Set the browserUserAgent field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.browserUserAgent field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setBrowserUserAgent($value)
+    {
+        return $this->setParameter('browserUserAgent', $value);
+    }
+
+    /**
+     * Get the notificationURL field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.notificationURL field
+     *
+     * @return null|string
+     */
+    public function getNotificationURL()
+    {
+        return $this->getParameter('notificationURL');
+    }
+
+    /**
+     * Set the notificationURL field
+     *
+     * Corresponds to the Ds_Merchant_Emv3Ds.notificationURL field
+     *
+     * @param null|string $value
+     * @return self
+     */
+    public function setNotificationURL($value)
+    {
+        return $this->setParameter('notificationURL', $value);
+    }
+
+    /**
      * Get the basic data fields that don't require any 3DS/SCA fields
      */
     public function getBaseData()
@@ -1495,13 +1820,34 @@ class PurchaseRequest extends AbstractRequest
                 'cc'         => $this->getWorkPhoneCountryPrefix(),
                 'subscriber' => $this->getWorkPhone(),
             ]);
+            // for optional threeDSRequestorAuthenticationInfo param
             $threeDSAuthInfo = array_filter([
                 'threeDSReqAuthData'      => $this->get3DsRequestAuthenticationMethodData(),
                 'threeDSReqAuthMethod'    => $this->get3DsRequestAuthenticationMethod(),
                 'threeDSReqAuthTimestamp' => $this->get3DsRequestAuthenticationTime(),
             ]);
+            // for optional DS_MERCHANT_EMV3DS param object
             $emv3DsParameters = array_filter([
+                // required parameters for v2
+                'browserAcceptHeader'                => $this->getBrowserAcceptHeader(),
+                'browserColorDepth'                  => $this->getBrowserColorDepth(),
+                'browserIP'                          => $this->getBrowserIP(),
+                'browserJavaEnabled'                 => $this->getBrowserJavaEnabled(),
+                'browserLanguage'                    => $this->getBrowserLanguage(),
+                'browserScreenHeight'                => $this->getBrowserScreenHeight(),
+                'browserScreenWidth'                 => $this->getBrowserScreenWidth(),
+                'browserTZ'                          => $this->getBrowserTZ(),
+                'browserUserAgent'                   => $this->getBrowserUserAgent(),
+                'notificationURL'                    => $this->getNotificationURL(),
+                'protocolVersion'                    => $this->getProtocolVersion(),
+                // Indicates whether the 3DSMethod has been executed. Values ​​accepted: Y= Successfully completed, N = Completed with errors, U = 3DSMethod not executed
+                'threeDSCompInd'                     => $this->getThreeDSCompInd(),
+                // Type of request. Possible values: CardData, AuthenticationData, ChallengeResponse
+                'threeDSInfo'                        => $this->getThreeDSInfo(),
+                'threeDSServerTransID'               => $this->getTransactionId(),
+                // optional parameters for v2
                 'cardholderName'                     => $this->getCardholder(),
+                // in Redsys DS_MERCHANT_EMV3DS table as 'E-mail'
                 'email'                              => $card->getEmail(),
                 'homePhone'                          => $homePhone,
                 'mobilePhone'                        => $mobilePhone,

@@ -21,11 +21,12 @@ class RedirectGateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return array(
-            'merchantId' => '',
-            'merchantName' => '',
-            'terminalId' => '',
-            'hmacKey' => '',
-            'testMode' => false,
+            'merchantId'      => '',
+            'merchantName'    => '',
+            'terminalId'      => '',
+            'hmacKey'         => '',
+            'protocolVersion' => '2.1.0', // default in case not set in the gateway config
+            'testMode'        => false,
         );
     }
 
@@ -67,6 +68,16 @@ class RedirectGateway extends AbstractGateway
     public function setHmacKey($value)
     {
         return $this->setParameter('hmacKey', $value);
+    }
+
+    public function getProtocolVersion()
+    {
+        return $this->getParameter('protocolVersion');
+    }
+
+    public function setProtocolVersion($value)
+    {
+        return $this->setParameter('protocolVersion', $value);
     }
 
     public function purchase(array $parameters = array())
