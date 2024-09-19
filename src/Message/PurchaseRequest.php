@@ -1727,7 +1727,7 @@ class PurchaseRequest extends AbstractRequest
             'Ds_Merchant_ProductDescription' => $this->getDescription(),
             'Ds_Merchant_Cardholder'         => $this->getCardholder(),
             'Ds_Merchant_UrlOK'              => $this->getReturnUrl(),
-            'Ds_Merchant_UrlKO'              => $this->getReturnUrl(),
+            'Ds_Merchant_UrlKO'              => $this->getCancelUrl(),
             'Ds_Merchant_MerchantName'       => $this->getMerchantName(),
             'Ds_Merchant_ConsumerLanguage'   => $this->getConsumerLanguage(),
             'Ds_Merchant_MerchantData'       => $this->getMerchantData(),
