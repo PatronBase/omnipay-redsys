@@ -10,13 +10,13 @@ class SecurityTest extends TestCase
     protected $security;
     protected $mockSecurity;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->security = new Security;
         $this->mockSecurity = m::mock('\Omnipay\Redsys\Message\Security');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         m::close();
     }

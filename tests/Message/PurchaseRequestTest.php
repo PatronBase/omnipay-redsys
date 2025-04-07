@@ -26,35 +26,37 @@ class PurchaseRequestTest extends TestCase
     /** @var mixed[] */
     protected $full3DSParams = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->fullBaseParams = $this->requiredRequestParams + [
+            'clientIp'         => '192.0.0.0',
             'transactionId'    => '123abc',
             'hmacKey'          => 'Mk9m98IfEblmPfrpsawt7BmxObt98Jev',
             'description'      => 'My sales items',
             'cardholder'       => 'J Smith',
+            'cancelUrl'        => 'https://www.example.com/cancel',
             'notifyUrl'        => 'https://www.example.com/notify',
             'returnUrl'        => 'https://www.example.com/return',
             'merchantName'     => 'My Store',
             'consumerLanguage' => 'en',
             'merchantData'     => 'Ref: 99zz',
+            'directPayment'    => false,
         ];
 
         $this->full3DSParams = $this->fullBaseParams + [
             'use3DS'               => true,
             'protocolVersion'      => '2.1.0',
             'threeDSCompInd'       => 'U',
-			'threeDSInfo'          => 'CardData',
+            'threeDSInfo'          => 'CardData',
             'threeDSServerTransID' => '12345',
             'browserAcceptHeader'  => 'text/html,application',
-			'browserColorDepth'    => '24',
-			'browserIP'            => '192.0.0.0',
-			'browserJavaEnabled'   => true,
-			'browserLanguage'      => 'en-GB',
-			'browserScreenHeight'  => '1000',
-			'browserScreenWidth'   => '1200',
-			'browserTZ'            => '2',
-			'browserUserAgent'     => 'Mozilla/5.0',
+            'browserColorDepth'    => '24',
+            'browserJavaEnabled'   => true,
+            'browserLanguage'      => 'en-GB',
+            'browserScreenHeight'  => '1000',
+            'browserScreenWidth'   => '1200',
+            'browserTZ'            => '2',
+            'browserUserAgent'     => 'Mozilla/5.0',
             'card'                 => new CreditCard([
                 'email' => "test@example.net",
                 'shippingAddress1' => "Ship 1 Test",
@@ -130,7 +132,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('My sales items', $data['Ds_Merchant_ProductDescription']);
         $this->assertSame('J Smith', $data['Ds_Merchant_Cardholder']);
         $this->assertSame('https://www.example.com/return', $data['Ds_Merchant_UrlOK']);
-        $this->assertSame('https://www.example.com/return', $data['Ds_Merchant_UrlKO']);
+        $this->assertSame('https://www.example.com/cancel', $data['Ds_Merchant_UrlKO']);
         $this->assertSame('My Store', $data['Ds_Merchant_MerchantName']);
         $this->assertSame('002', $data['Ds_Merchant_ConsumerLanguage']);
         $this->assertSame('Ref: 99zz', $data['Ds_Merchant_MerchantData']);
@@ -157,6 +159,31 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('001', $this->request->getConsumerLanguage());
         $this->request->setConsumerLanguage('en');
         $this->assertSame('002', $this->request->getConsumerLanguage());
+    }
+
+    public function testSetDirectPayment()
+    {
+        // starts false in base test data
+        $this->assertFalse($this->request->getDirectPayment());
+        // valid, but corrects case
+        $this->request->setDirectPayment("moto");
+        $this->assertSame('MOTO', $this->request->getDirectPayment());
+        // valid (effectively unsets)
+        $this->request->setDirectPayment(null);
+        $this->assertNull($this->request->getDirectPayment());
+        // valid
+        $this->request->setDirectPayment(true);
+        $this->assertTrue($this->request->getDirectPayment());
+        $this->request->setDirectPayment(false);
+        $this->assertFalse($this->request->getDirectPayment());
+        // valid, but converts to bool
+        $this->request->setDirectPayment("true");
+        $this->assertTrue($this->request->getDirectPayment());
+        $this->request->setDirectPayment("false");
+        $this->assertFalse($this->request->getDirectPayment());
+        // invalid, forces back to null
+        $this->request->setDirectPayment(100);
+        $this->assertNull($this->request->getDirectPayment());
     }
 
     public function testGet3DSAccountInfoData()

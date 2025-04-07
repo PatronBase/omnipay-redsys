@@ -35,29 +35,41 @@
         "psr-4": { "Omnipay\\Redsys\\" : "tests/" }
     },
     "require": {
+        "php": "^7.2|^8.0",
         "omnipay/common": "dev-address3-support"
     },
     "require-dev": {
         "omnipay/tests": "dev-address3-support",
-        "squizlabs/php_codesniffer": "^3.5"
+        "squizlabs/php_codesniffer": "^3.5",
+        "http-interop/http-factory-guzzle": "^1.1"
     },
     "suggest": {
         "ext-openssl": "Required for hashing functions to check message signatures"
     },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 src/",
+        "fix-style": "phpcbf -p --standard=PSR2 src/"
+    },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.2.x-dev"
+            "dev-master": "3.3.x-dev"
         }
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/CodeDruids/omnipay-common"
+            "url": "https://github.com/PatronBase/omnipay-common"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/CodeDruids/omnipay-tests"
+            "url": "https://github.com/PatronBase/omnipay-tests"
         }
     ],
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
 }

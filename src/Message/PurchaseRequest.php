@@ -161,7 +161,7 @@ class PurchaseRequest extends AbstractRequest
     /**
      * Set the language presented to the consumer
      *
-     * @param null|string|int Either the ISO 639-1 code to be converted, or the gateway's own numeric language code
+     * @param null|string|int $value The ISO 639-1 code to be converted, or the gateway's own numeric language code
      */
     public function setConsumerLanguage($value)
     {
@@ -175,6 +175,41 @@ class PurchaseRequest extends AbstractRequest
         }
 
         return $this->setParameter('consumerLanguage', $value);
+    }
+
+    public function getDirectPayment()
+    {
+        return $this->getParameter('directPayment');
+    }
+
+    /**
+     * Set the "directness" of payment
+     *
+     * Can be true (merchant initiated), false/null (customer initiated) or "MOTO" (usually call centre initiated)
+     * Invalid values will be converted to null as that's the most secure option
+     *
+     * @param null|bool|string $value
+     */
+    public function setDirectPayment($value)
+    {
+        if (is_bool($value)) {
+            // this is fine
+        } elseif (is_string($value)) {
+            if (strtoupper($value) == "TRUE") {
+                $value = true;
+            } elseif (strtoupper($value) == "FALSE") {
+                $value = false;
+            } elseif (strtoupper($value) == "MOTO") {
+                $value = "MOTO";
+            } else {
+                // something invalid
+                $value = null;
+            }
+        } else {
+            // something invalid
+            $value = null;
+        }
+        return $this->setParameter('directPayment', $value);
     }
 
     public function getHmacKey()
@@ -278,11 +313,11 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * Get the threeDSCompInd field
+     * Get the threeDSCompInd field, which indicates whether the 3DSMethod has been executed
+     *
      * Corresponds to the Ds_Merchant_Emv3Ds.threeDSCompInd field in Redsys documentation.
      *
-     * @return null|string
-     *
+     * @return null|string Y = Successfully completed, N = Completed with errors, U = 3DSMethod not executed
      */
     public function getThreeDSCompInd()
     {
@@ -303,11 +338,11 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * Get the threeDSInfo field
+     * Get the threeDSInfo field (the type of request)
+     *
      * Corresponds to the Ds_Merchant_Emv3Ds.threeDSInfo field in Redsys documentation.
      *
-     * @return null|string
-     *
+     * @return null|string Possible values: CardData, AuthenticationData, ChallengeResponse
      */
     public function getThreeDSInfo()
     {
@@ -1508,31 +1543,6 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * Get the browserIP field
-     *
-     * Corresponds to the Ds_Merchant_Emv3Ds.browserIP field
-     *
-     * @return null|string
-     */
-    public function getBrowserIP()
-    {
-        return $this->getParameter('browserIP');
-    }
-
-    /**
-     * Set the browserIP field
-     *
-     * Corresponds to the Ds_Merchant_Emv3Ds.browserIP field
-     *
-     * @param null|string $value
-     * @return self
-     */
-    public function setBrowserIP($value)
-    {
-        return $this->setParameter('browserIP', $value);
-    }
-
-    /**
      * Get the browserJavaEnabled field
      *
      * Corresponds to the Ds_Merchant_Emv3Ds.browserJavaEnabled field
@@ -1683,31 +1693,6 @@ class PurchaseRequest extends AbstractRequest
     }
 
     /**
-     * Get the notificationURL field
-     *
-     * Corresponds to the Ds_Merchant_Emv3Ds.notificationURL field
-     *
-     * @return null|string
-     */
-    public function getNotificationURL()
-    {
-        return $this->getParameter('notificationURL');
-    }
-
-    /**
-     * Set the notificationURL field
-     *
-     * Corresponds to the Ds_Merchant_Emv3Ds.notificationURL field
-     *
-     * @param null|string $value
-     * @return self
-     */
-    public function setNotificationURL($value)
-    {
-        return $this->setParameter('notificationURL', $value);
-    }
-
-    /**
      * Get the basic data fields that don't require any 3DS/SCA fields
      */
     public function getBaseData()
@@ -1727,7 +1712,7 @@ class PurchaseRequest extends AbstractRequest
             'Ds_Merchant_ProductDescription' => $this->getDescription(),
             'Ds_Merchant_Cardholder'         => $this->getCardholder(),
             'Ds_Merchant_UrlOK'              => $this->getReturnUrl(),
-            'Ds_Merchant_UrlKO'              => $this->getReturnUrl(),
+            'Ds_Merchant_UrlKO'              => $this->getCancelUrl(),
             'Ds_Merchant_MerchantName'       => $this->getMerchantName(),
             'Ds_Merchant_ConsumerLanguage'   => $this->getConsumerLanguage(),
             'Ds_Merchant_MerchantData'       => $this->getMerchantData(),
@@ -1797,6 +1782,11 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
         $data = $this->getBaseData();
+
+        if ($this->getDirectPayment() !== null) {
+            $data['Ds_Merchant_DirectPayment'] = $this->getDirectPayment();
+        }
+
         if ($this->getScaExemptionIndicator() !== null) {
             $data['Ds_Merchant_Excep_Sca'] = $this->getScaExemptionIndicator();
         }
@@ -1831,18 +1821,16 @@ class PurchaseRequest extends AbstractRequest
                 // required parameters for v2
                 'browserAcceptHeader'                => $this->getBrowserAcceptHeader(),
                 'browserColorDepth'                  => $this->getBrowserColorDepth(),
-                'browserIP'                          => $this->getBrowserIP(),
+                'browserIP'                          => $this->getClientIp(),
                 'browserJavaEnabled'                 => $this->getBrowserJavaEnabled(),
                 'browserLanguage'                    => $this->getBrowserLanguage(),
                 'browserScreenHeight'                => $this->getBrowserScreenHeight(),
                 'browserScreenWidth'                 => $this->getBrowserScreenWidth(),
                 'browserTZ'                          => $this->getBrowserTZ(),
                 'browserUserAgent'                   => $this->getBrowserUserAgent(),
-                'notificationURL'                    => $this->getNotificationURL(),
+                'notificationURL'                    => $this->getNotifyUrl(),
                 'protocolVersion'                    => $this->getProtocolVersion(),
-                // Indicates whether the 3DSMethod has been executed. Values ​​accepted: Y= Successfully completed, N = Completed with errors, U = 3DSMethod not executed
                 'threeDSCompInd'                     => $this->getThreeDSCompInd(),
-                // Type of request. Possible values: CardData, AuthenticationData, ChallengeResponse
                 'threeDSInfo'                        => $this->getThreeDSInfo(),
                 'threeDSServerTransID'               => $this->getTransactionId(),
                 // optional parameters for v2

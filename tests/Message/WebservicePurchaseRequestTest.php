@@ -10,7 +10,7 @@ class WebservicePurchaseRequestTest extends TestCase
     /** @var WebservicePurchaseRequest */
     private $request;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->request = new WebservicePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(
@@ -24,7 +24,7 @@ class WebservicePurchaseRequestTest extends TestCase
                 'card'             => new CreditCard(array(
                     'number'      => '4548812049400004',
                     'expiryMonth' => '12',
-                    'expiryYear'  => '2020',
+                    'expiryYear'  => '2030',
                     'cvv'         => '285',
                 )),
 
@@ -50,7 +50,7 @@ class WebservicePurchaseRequestTest extends TestCase
         $this->assertSame('0123abc', $data['DATOSENTRADA']['DS_MERCHANT_ORDER']);
 
         $this->assertSame('4548812049400004', $data['DATOSENTRADA']['DS_MERCHANT_PAN']);
-        $this->assertSame('2012', $data['DATOSENTRADA']['DS_MERCHANT_EXPIRYDATE']);
+        $this->assertSame('3012', $data['DATOSENTRADA']['DS_MERCHANT_EXPIRYDATE']);
         $this->assertSame('285', $data['DATOSENTRADA']['DS_MERCHANT_CVV2']);
 
         // $this->assertSame('My sales items', $data['DATOSENTRADA']['DS_MERCHANT_PRODUCTDESCRIPTION']);
@@ -61,7 +61,7 @@ class WebservicePurchaseRequestTest extends TestCase
 
         $this->assertSame('HMAC_SHA256_V1', $data['DS_SIGNATUREVERSION']);
         // signature will change if undocumented fields added
-        $this->assertSame('1RPtKuPpDldIa88VBPugTqm5BWJxoUWT0503BM/U5l4=', $data['DS_SIGNATURE']);
+        $this->assertSame('hgg101IGPL2CNEJzpx2xZzSGnw/0UDqVNPUh/d52ouM=', $data['DS_SIGNATURE']);
     }
 
     public function testGetHmacKey()
