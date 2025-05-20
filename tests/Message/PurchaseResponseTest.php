@@ -30,7 +30,7 @@ class PurchaseResponseTest extends TestCase
      *      'Ds_Merchant_ConsumerLanguage'   => '002',
      *      'Ds_Merchant_MerchantData'       => 'Ref: 99zz',
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->response = new PurchaseResponse($this->getMockRequest(), array(
             'Ds_SignatureVersion' => 'HMAC_SHA256_V1',
