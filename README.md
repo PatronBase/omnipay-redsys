@@ -2,7 +2,7 @@
 
 **Redsys driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/PatronBase/omnipay-redsys.png?branch=master)](https://travis-ci.org/PatronBase/omnipay-redsys)
+[![Build Status](https://github.com/PatronBase/omnipay-redsys/actions/workflows/phpunit.yml/badge.svg?branch=master)](https://github.com/PatronBase/omnipay-redsys/actions)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/PatronBase/omnipay-redsys.svg?style=flat)](https://scrutinizer-ci.com/g/PatronBase/omnipay-redsys/code-structure)
 [![Code Quality](https://img.shields.io/scrutinizer/g/PatronBase/omnipay-redsys.svg?style=flat)](https://scrutinizer-ci.com/g/PatronBase/omnipay-redsys/?branch=master)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
@@ -11,7 +11,7 @@
 
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.6+. This package implements Redsys support for Omnipay. It includes
+processing library for PHP 7.2+. This package implements Redsys support for Omnipay. It includes
 support for both redirect (3-party) and webservice (2-party) versions of the gateway.
 
 ## Installation
