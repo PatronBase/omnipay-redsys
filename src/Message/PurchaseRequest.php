@@ -171,7 +171,7 @@ class PurchaseRequest extends AbstractRequest
             }
             $value = str_pad($value, 3, '0', STR_PAD_LEFT);
         } elseif (!is_numeric($value)) {
-            $value = isset(self::$consumerLanguages[$value]) ? self::$consumerLanguages[$value] : '001';
+            $value = self::$consumerLanguages[$value] ?? '001';
         }
 
         return $this->setParameter('consumerLanguage', $value);
@@ -260,6 +260,16 @@ class PurchaseRequest extends AbstractRequest
     public function setTerminalId($value)
     {
         return $this->setParameter('terminalId', $value);
+    }
+
+    public function getCreateToken()
+    {
+        return $this->getParameter('createToken');
+    }
+
+    public function setCreateToken($value)
+    {
+        return $this->setParameter('createToken', $value);
     }
 
     /**
@@ -1716,6 +1726,9 @@ class PurchaseRequest extends AbstractRequest
             'Ds_Merchant_MerchantName'       => $this->getMerchantName(),
             'Ds_Merchant_ConsumerLanguage'   => $this->getConsumerLanguage(),
             'Ds_Merchant_MerchantData'       => $this->getMerchantData(),
+            'Ds_Merchant_Identifier'         => $this->getCreateToken()
+                ? 'REQUIRED'
+                : ($this->getToken() ?? $this->getCardReference()),
         ];
     }
 

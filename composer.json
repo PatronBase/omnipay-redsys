@@ -41,7 +41,7 @@
     "require-dev": {
         "omnipay/tests": "dev-address3-support",
         "squizlabs/php_codesniffer": "^3.5",
-        "http-interop/http-factory-guzzle": "^1.1"
+        "guzzlehttp/psr7": "^2.0"
     },
     "suggest": {
         "ext-openssl": "Required for hashing functions to check message signatures"
@@ -53,7 +53,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.3.x-dev"
+            "dev-master": "3.4.x-dev"
         }
     },
     "repositories": [

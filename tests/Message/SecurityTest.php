@@ -61,8 +61,6 @@ class SecurityTest extends TestCase
 
     /**
      * Make sure correct exception fires when no valid extension is installed
-     *
-     * @doesNotPerformAssertions
      */
     public function testEncryptMessageException()
     {

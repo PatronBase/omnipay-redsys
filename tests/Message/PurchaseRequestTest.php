@@ -41,6 +41,7 @@ class PurchaseRequestTest extends TestCase
             'consumerLanguage' => 'en',
             'merchantData'     => 'Ref: 99zz',
             'directPayment'    => false,
+            'createToken'      => false,
         ];
 
         $this->full3DSParams = $this->fullBaseParams + [
@@ -136,6 +137,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('My Store', $data['Ds_Merchant_MerchantName']);
         $this->assertSame('002', $data['Ds_Merchant_ConsumerLanguage']);
         $this->assertSame('Ref: 99zz', $data['Ds_Merchant_MerchantData']);
+        $this->assertNull($data['Ds_Merchant_Identifier']);
     }
 
     public function testGetDataTestMode()
@@ -184,6 +186,45 @@ class PurchaseRequestTest extends TestCase
         // invalid, forces back to null
         $this->request->setDirectPayment(100);
         $this->assertNull($this->request->getDirectPayment());
+    }
+
+    public function testGetDataOnlyCreateToken()
+    {
+        $options = array_merge($this->fullBaseParams, ['createToken' => true]);
+        $this->request->initialize($options);
+        $this->assertTrue($this->request->getCreateToken());
+
+        $data = $this->request->getData();
+
+        $this->assertSame('REQUIRED', $data['Ds_Merchant_Identifier']);
+    }
+
+    public function testCardReference()
+    {
+        $options = array_merge($this->fullBaseParams, [
+            'createToken'   => null,
+            'cardReference' => '12345678901234567890',
+            'token'         => null,
+        ]);
+        $this->request->initialize($options);
+
+        $data = $this->request->getData();
+
+        $this->assertSame('12345678901234567890', $data['Ds_Merchant_Identifier']);
+    }
+
+    public function testToken()
+    {
+        $options = array_merge($this->fullBaseParams, [
+            'createToken'   => null,
+            'cardReference' => null,
+            'token'         => '23456789012345678901',
+        ]);
+        $this->request->initialize($options);
+
+        $data = $this->request->getData();
+
+        $this->assertSame('23456789012345678901', $data['Ds_Merchant_Identifier']);
     }
 
     public function testGet3DSAccountInfoData()
