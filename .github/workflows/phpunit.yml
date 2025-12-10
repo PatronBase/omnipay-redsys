@@ -33,6 +33,9 @@ jobs:
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
+        with:
+          # Fetch arbitrary more-than-one commit or Scrutinizer will error
+          fetch-depth: 10
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
@@ -63,3 +66,11 @@ jobs:
       - name: "Tests (PHPUnit 10+)"
         if: ${{ matrix.php-version >= '8.1' }}
         run: "vendor/bin/phpunit"
+
+      - name: Upload Scrutinizer coverage
+        continue-on-error: true
+        uses: sudo-bot/action-scrutinizer@latest
+        # Do not run this step on forked versions of the main repository (example: contributor forks)
+        if: github.repository == 'patronbase/omnipay-redsys'
+        with:
+            cli-args: "--format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}"

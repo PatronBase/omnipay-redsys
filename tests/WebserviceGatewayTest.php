@@ -83,9 +83,6 @@ class WebserviceGatewayTest extends GatewayTestCase
         $this->assertSame(909, (int) $response->getMessage());
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testPurchaseInvalid()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');

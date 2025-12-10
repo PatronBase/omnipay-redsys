@@ -27,6 +27,7 @@ class RedirectGatewayTest extends GatewayTestCase
             'protocolVersion' => '2.1.0',
             'transactionId'   => '123abc',
             'testMode'        => true,
+            'createToken'     => true,
         );
     }
 

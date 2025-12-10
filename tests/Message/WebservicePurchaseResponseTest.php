@@ -108,9 +108,6 @@ class WebservicePurchaseResponseTest extends TestCase
         $this->assertSame(180, (int) $this->response->getMessage());
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testPurchaseInvalidNoReturnCode()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -123,9 +120,6 @@ class WebservicePurchaseResponseTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testPurchaseInvalidNoTransactionData()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -138,9 +132,6 @@ class WebservicePurchaseResponseTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testPurchaseIntegrationError()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -153,9 +144,6 @@ class WebservicePurchaseResponseTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testCompletePurchaseInvalidNoOrder()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -171,9 +159,6 @@ class WebservicePurchaseResponseTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testCompletePurchaseInvalidMissingData()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -191,9 +176,6 @@ class WebservicePurchaseResponseTest extends TestCase
     }
 
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testPurchaseBadSignature()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');

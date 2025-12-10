@@ -31,6 +31,8 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($this->response->isRedirect());
         $this->assertSame('999999', $this->response->getTransactionReference());
         $this->assertSame(0, (int) $this->response->getMessage());
+        $this->assertSame('C', $this->response->getCardType());
+        $this->assertNull($this->response->getCardReference());
 
         $checks = array(
             'Ds_SignatureVersion'  => 'HMAC_SHA256_V1',
@@ -75,6 +77,8 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($this->response->isRedirect());
         $this->assertSame('999999', $this->response->getTransactionReference());
         $this->assertSame(0, (int) $this->response->getMessage());
+        $this->assertSame('C', $this->response->getCardType());
+        $this->assertNull($this->response->getCardReference());
 
         $checks = array(
             'DS_SIGNATUREVERSION'  => 'HMAC_SHA256_V1',
@@ -120,6 +124,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($this->response->isRedirect());
         $this->assertSame(180, (int) $this->response->getMessage());
         $this->assertNull($this->response->getCardType());
+        $this->assertNull($this->response->getCardReference());
 
         $checks = array(
             'Ds_SignatureVersion'  => 'HMAC_SHA256_V1',
@@ -163,6 +168,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->assertFalse($this->response->isRedirect());
         $this->assertSame(909, (int) $this->response->getMessage());
         $this->assertNull($this->response->getCardType());
+        $this->assertNull($this->response->getCardReference());
 
         $checks = array(
             'Ds_SignatureVersion'  => 'HMAC_SHA256_V1',
@@ -184,9 +190,30 @@ class CompletePurchaseResponseTest extends TestCase
         $this->runChecks($checks);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    public function testCompletePurchaseReturnsCardReference()
+    {
+        $this->getMockRequest()->shouldReceive('getHmacKey')->once()->andReturn('Mk9m98IfEblmPfrpsawt7BmxObt98Jev');
+
+        $this->response = new CompletePurchaseResponse(
+            $this->getMockRequest(),
+            [
+                'Ds_SignatureVersion' => 'HMAC_SHA256_V1',
+                'Ds_MerchantParameters' => 'eyJEc19EYXRlIjoiMTBcLzExXC8yMDE1IiwiRHNfSG91ciI6IjEyOjAwIiwiRHNfU2VjdXJlUG'
+                    .'F5bWVudCI6IjEiLCJEc19BbW91bnQiOiIxNDUiLCJEc19DdXJyZW5jeSI6Ijk3OCIsIkRzX09yZGVyIjoiMDEyM2FiYyIsIk'
+                    .'RzX01lcmNoYW50Q29kZSI6Ijk5OTAwODg4MSIsIkRzX1Rlcm1pbmFsIjoiODcxIiwiRHNfUmVzcG9uc2UiOiIwMDAwIiwiRH'
+                    .'NfVHJhbnNhY3Rpb25UeXBlIjoiMCIsIkRzX01lcmNoYW50RGF0YSI6IlJlZjogOTl6eiIsIkRzX0F1dGhvcmlzYXRpb25Db2'
+                    .'RlIjoiOTk5OTk5IiwiRHNfQ29uc3VtZXJMYW5ndWFnZSI6IjIiLCJEc19DYXJkX0NvdW50cnkiOiI3MjQiLCJEc19DYXJkX1'
+                    .'R5cGUiOiJDIiwiRHNfTWVyY2hhbnRfSWRlbnRpZmllciI6IjEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Nj'
+                    .'c4OTAifQ==',
+                'Ds_Signature' => 'D_t6g3K47mE_DtF8ZHjmZBFw54E_lFxNVsZJ0NbEX2o=',
+            ]
+        );
+
+        $this->assertTrue($this->response->isSuccessful());
+        $this->assertFalse($this->response->isRedirect());
+        $this->assertSame('1234567890123456789012345678901234567890', $this->response->getCardReference());
+    }
+
     public function testCompletePurchaseInvalidNoParameters()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -201,9 +228,6 @@ class CompletePurchaseResponseTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testCompletePurchaseInvalidNoOrder()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');
@@ -222,9 +246,6 @@ class CompletePurchaseResponseTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testCompletePurchaseInvalidSignature()
     {
         $this->expectException('Omnipay\Common\Exception\InvalidResponseException');

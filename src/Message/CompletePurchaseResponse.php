@@ -102,7 +102,7 @@ class CompletePurchaseResponse extends AbstractResponse
         if ($this->usingUpcaseParameters) {
             $key = strtoupper($key);
         }
-        return isset($this->merchantParameters[$key]) ? $this->merchantParameters[$key] : null;
+        return $this->merchantParameters[$key] ?? null;
     }
 
     /**
@@ -133,5 +133,15 @@ class CompletePurchaseResponse extends AbstractResponse
     public function getCardType()
     {
         return $this->getKey('Ds_Card_Type');
+    }
+
+    /**
+     * Get the card reference (payment token) if available
+     *
+     * @return null|string
+     */
+    public function getCardReference()
+    {
+        return $this->getKey('Ds_Merchant_Identifier');
     }
 }
