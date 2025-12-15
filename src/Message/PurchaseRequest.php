@@ -1726,9 +1726,6 @@ class PurchaseRequest extends AbstractRequest
             'Ds_Merchant_MerchantName'       => $this->getMerchantName(),
             'Ds_Merchant_ConsumerLanguage'   => $this->getConsumerLanguage(),
             'Ds_Merchant_MerchantData'       => $this->getMerchantData(),
-            'Ds_Merchant_Identifier'         => $this->getCreateToken()
-                ? 'REQUIRED'
-                : ($this->getToken() ?? $this->getCardReference()),
         ];
     }
 
@@ -1795,6 +1792,12 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
         $data = $this->getBaseData();
+
+        if ($this->getCreateToken() || $this->getToken() || $this->getCardReference()) {
+            $data['Ds_Merchant_Identifier'] = $this->getCreateToken()
+                ? 'REQUIRED'
+                : ($this->getToken() ?? $this->getCardReference());
+        }
 
         if ($this->getDirectPayment() !== null) {
             $data['Ds_Merchant_DirectPayment'] = $this->getDirectPayment();

@@ -137,7 +137,6 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame('My Store', $data['Ds_Merchant_MerchantName']);
         $this->assertSame('002', $data['Ds_Merchant_ConsumerLanguage']);
         $this->assertSame('Ref: 99zz', $data['Ds_Merchant_MerchantData']);
-        $this->assertNull($data['Ds_Merchant_Identifier']);
     }
 
     public function testGetDataTestMode()
